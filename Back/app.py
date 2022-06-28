@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect, jsonify
+from flask import Flask, request, redirect, jsonify
 from flask_mongoengine import MongoEngine
+# from flask_pymongo import PyMongo
 from mongoengine import *
 import json
 from datetime import datetime
@@ -7,6 +8,9 @@ import uuid
 
 app = Flask(__name__)
 # TODO: connect to MongoDB
+# app.config["MONGO_URI"] = "mongodb://localhost:27017/my_notes"
+# mongo = PyMongo(app)
+
 app.config['MONGODB_SETTINGS'] = {
     'db': 'my_notes',
     'host': 'localhost',
