@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import uuid
 
 app = Flask(__name__)
 # TODO: connect to MongoDB
@@ -19,9 +20,9 @@ class Note(db.Model):
         return rep_str
 
 
-# TODO: complete this function
+# TODO: review this function
 def generate_unique_url():
-    return 'url'
+    return uuid.uuid4()
 
 
 @app.route('/', methods=['GET'])
