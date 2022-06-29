@@ -1,9 +1,8 @@
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, render_template
 from flask_mongoengine import MongoEngine
 from mongoengine import *
 from datetime import datetime, timedelta
 import os
-import json
 import uuid
 
 app = Flask(__name__)
@@ -41,14 +40,14 @@ def get_expiration_date(day):
 
 @app.route('/', methods=['GET'])
 def index():
-    # TODO: show the index page
-    return "Index page"
+    # TODO: show the index page 'index.html'
+    return render_template('index.html')
 
 
 @app.route('/create-note', methods=['POST'])
 def create_note():
     if request.method == "POST":
-        note_content = request.json["content"]
+        note_content = request.form['content']
         new_url = generate_unique_url()
         days = os.environ.get("note-expiration", default=10)
         expiration_date = get_expiration_date(days)
@@ -65,15 +64,24 @@ def create_note():
 
 @app.route('/note-warn/<string:u_url>', methods=['GET'])
 def note_warn(u_url):
-    # TODO: show the warning page
-    return "warning page for: " + u_url
+    note = Note.objects(unique_url=u_url)
+    # TODO: show the warning page 'warning.html'
+    return render_template('warning.html', note=note)
 
 
 @app.route('/note/<string:u_url>', methods=['GET'])
 def show_note(u_url):
     # TODO: show note and then delete it
-    note = Note.objects(unique_url=u_url)
-    return note.__repr__()
+    try:
+        note = Note.objects(unique_url=u_url)
+        note.delete()
+        return note.__repr__()
+
+    except Exception as e:
+        print(e)
+        return "The note is deleted or the URL is not correct!"
+
+    # return render_template('warning.html', note=note)
 
 
 @app.route('/delete/<string:u_url>')
