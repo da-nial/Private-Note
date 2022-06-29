@@ -17,6 +17,8 @@ RUN pip install -e .
 FROM m.docker-registry.ir/python:3.9-slim AS build-image
 COPY --from=compile-image /opt/venv /opt/venv
 
+RUN . /opt/venv/bin/activate
+
 # Make sure we use the virtualenv:
 ENV PATH="/opt/venv/bin:$PATH"
-CMD ['pvnoteflask']
+ENV FLASK_APP='pvnoteflask'
