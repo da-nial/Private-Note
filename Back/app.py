@@ -40,7 +40,7 @@ def get_expiration_date(day):
 
 @app.route('/', methods=['GET'])
 def index():
-    # TODO: show the index page 'index.html'
+    # show the index page 'index.html'
     return render_template('index.html')
 
 
@@ -55,7 +55,6 @@ def create_note():
 
         try:
             new_note.save()
-            # TODO: return created url to the client
             return str(new_url)
         except Exception as e:
             print(e)
@@ -64,36 +63,24 @@ def create_note():
 
 @app.route('/note-warn/<string:u_url>', methods=['GET'])
 def note_warn(u_url):
-    note = Note.objects(unique_url=u_url)
-    # TODO: show the warning page 'warning.html'
+    note = Note.objects.get(unique_url=u_url)
+    # show the warning page 'warning.html'
     return render_template('warning.html', note=note)
 
 
 @app.route('/note/<string:u_url>', methods=['GET'])
 def show_note(u_url):
-    # TODO: show note and then delete it
+    # show note and then delete it
     try:
-        note = Note.objects(unique_url=u_url)
+        note = Note.objects.get(unique_url=u_url)
+        print("dict: ", note.__dict__)
+        note_content = note.content
         note.delete()
-        return note.__repr__()
+        return note_content
 
     except Exception as e:
         print(e)
-        return "The note is deleted or the URL is not correct!"
-
-    # return render_template('warning.html', note=note)
-
-
-@app.route('/delete/<string:u_url>')
-def delete(u_url):
-    note_to_delete = Note.objects(unique_url=u_url)
-
-    try:
-        note_to_delete.delete()
-        return redirect('/')
-    except Exception as e:
-        print(e)
-        return "There was an issue deleting your Note!"
+        return "Note does not exist!"
 
 
 if __name__ == "__main__":
