@@ -8,11 +8,11 @@ import uuid
 app = Flask(__name__)
 # connect to MongoDB
 app.config['MONGODB_SETTINGS'] = {
-    'db': os.environ.get('mongodb', default='my_notes'),
+    'db': os.environ.get('DB_NAME', default='my_notes'),
     'host': 'localhost',
     'port': 27017,
-    'username': os.environ.get('mongouser', default='mongouser'),
-    'password': os.environ.get('mongopass', default='12345678')
+    'username': os.environ.get('DB_USER', default='mongouser'),
+    'password': os.environ.get('DB_PASSWORD', default='12345678')
 }
 db = MongoEngine()
 db.init_app(app)
@@ -51,7 +51,7 @@ def create_note():
     if request.method == "POST":
         note_content = request.form['content']
         new_url = generate_unique_url()
-        days = os.environ.get("note-expiration", default=10)
+        days = int(os.environ.get("NOTE_EXPIRATION", default=10))
         expiration_date = get_expiration_date(days)
         new_note = Note(content=note_content, unique_url=new_url, date_expiration=expiration_date)
 
@@ -86,4 +86,4 @@ def show_note(u_url):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=os.environ.get('flask_port', default=5000))
+    app.run(debug=True, port=int(os.environ.get('PORT', default=5000)))

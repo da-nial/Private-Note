@@ -1,10 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: myapp
-  name: myapp
+  name: myapp-deployment
 spec:
   replicas: 3
   selector:
@@ -13,22 +12,15 @@ spec:
   strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: myapp
     spec:
       containers:
-      - image: rajabpouramir/mygoapp:2
-        name: myapp
-        resources: {}
-        ports:
-          - containerPort: 8080
-        volumeMounts:
-          - mountPath: config.json
-            subPath: production-config.json
-            name: config-map
-      volumes:
-        - name: config-map
-          configMap:
-            name: myapp
-status: {}
+        - image: rajabpouramir/pv-note:latest
+          name: myapp
+          resources: {}
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: myapp-configmap

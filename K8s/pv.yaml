@@ -4,9 +4,9 @@ metadata:
   name: persistent-volume
 spec:
   capacity:
-   storage: 5Gi
+    storage: 5Gi
   accessModes:
-   - ReadWriteOnce
+    - ReadWriteOnce
   hostPath:
     path: "/mnt/data"
   storageClassName: slow
