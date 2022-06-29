@@ -1,0 +1,2 @@
+graft pvnoteflask/templates
+global-exclude *.pyc
