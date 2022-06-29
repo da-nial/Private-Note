@@ -8,9 +8,11 @@ import uuid
 app = Flask(__name__)
 # connect to MongoDB
 app.config['MONGODB_SETTINGS'] = {
-    'db': 'my_notes',
+    'db': os.environ.get('mongodb', default='my_notes'),
     'host': 'localhost',
-    'port': 27017
+    'port': 27017,
+    'username': os.environ.get('mongouser', default='mongouser'),
+    'password': os.environ.get('mongopass', default='12345678')
 }
 db = MongoEngine()
 db.init_app(app)
