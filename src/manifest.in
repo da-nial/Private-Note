@@ -1,2 +1,3 @@
-graft pvnoteflask/templates
+graft privatenote/templates
+graft privatenote/static
 global-exclude *.pyc
