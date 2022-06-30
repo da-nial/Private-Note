@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: backend-claim
+  name: mongodb-pvc
+  labels:
+    app: mongodb
 spec:
   accessModes:
     - ReadWriteOnce
-  volumeMode: Filesystem
   resources:
     requests:
-      storage: 8Gi
-  storageClassName: slow
+      storage: 100Mi

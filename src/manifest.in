@@ -1,3 +1,1 @@
-graft privatenote/templates
-graft privatenote/static
-global-exclude *.pyc
+recursive-include privatenote *

@@ -2,25 +2,27 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: myapp
-  name: myapp-deployment
+    app: privatenote
+  name: privatenote-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: myapp
+      app: privatenote
   strategy: {}
   template:
     metadata:
       labels:
-        app: myapp
+        app: privatenote
     spec:
       containers:
-        - image: rajabpouramir/pv-note:latest
-          name: myapp
+        - image: nialda/private-note:latest
+          name: private-note-container
           resources: {}
           ports:
-            - containerPort: 8080
+            - containerPort: 5000
           envFrom:
             - configMapRef:
-                name: myapp-configmap
+                name: mongodb-configmap
+            - secretRef:
+                name: mongodb-secret

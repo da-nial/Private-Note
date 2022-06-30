@@ -52,7 +52,3 @@ def show_note(u_url):
     except Exception as e:
         print(e)
         return "Note does not exist!"
-
-
-if __name__ == "__main__":
-    app.run(debug=True, port=int(os.environ.get('PORT', default=5000)))
