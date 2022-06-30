@@ -1,4 +1,6 @@
 .idea
-Back/venv
+src/privatenote/venv
 venv
 Web/private-note/node_modules
+*.egg-info
+*/__pycache__/*
