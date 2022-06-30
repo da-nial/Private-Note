@@ -1,43 +1,12 @@
-from flask import Flask, request, redirect, render_template
-from flask_mongoengine import MongoEngine
-from mongoengine import *
-from datetime import datetime, timedelta
 import os
-import uuid
 
-app = Flask(__name__)
-# connect to MongoDB
-app.config['MONGODB_SETTINGS'] = {
-    'db': os.environ.get('DB_NAME', default='my_notes'),
-    'host': 'localhost',
-    'port': 27017,
-    'username': os.environ.get('DB_USER', default='mongouser'),
-    'password': os.environ.get('DB_PASSWORD', default='12345678')
-}
-db = MongoEngine()
+from flask import request, render_template
+
+from privatenote import app
+from .models import db, Note
+from .utils import generate_unique_url, get_expiration_date
+
 db.init_app(app)
-
-
-class Note(db.Document):
-    unique_url = StringField(primary_key=True, required=True)
-    content = StringField(required=True)
-    # this field should be filled from config file
-    date_expiration = DateTimeField(default=30)
-
-    def __repr__(self) -> str:
-        rep_str = "Note: " + self.unique_url + "--- Content: " + self.content
-        return rep_str
-
-
-# review this function
-def generate_unique_url():
-    return str(uuid.uuid4())
-
-
-def get_expiration_date(day):
-    ini_time_for_now = datetime.now()
-    future_date_after_n_days = ini_time_for_now + timedelta(days=day)
-    return future_date_after_n_days
 
 
 @app.route('/', methods=['GET'])

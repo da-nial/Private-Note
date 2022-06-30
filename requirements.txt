@@ -1,2 +1,4 @@
 Flask==2.1.2
 flask-mongoengine==1.0.0
+setuptools~=62.6.0
+mongoengine~=0.24.1
