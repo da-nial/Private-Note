@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-stateful-service
+spec:
+  selector:
+    role: mongo
+  ports:
+    - protocol: TCP
+      port: 27017
