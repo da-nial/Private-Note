@@ -5,6 +5,7 @@ metadata:
 spec:
   selector:
     role: mongo
+  clusterIP: None
   ports:
     - protocol: TCP
       port: 27017
