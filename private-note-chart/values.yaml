@@ -1,0 +1,4 @@
+kubernetesClusterDomain: cluster.local
+mongodbSecret:
+  mongoInitdbRootPassword: ""
+  mongoInitdbRootUsername: ""
