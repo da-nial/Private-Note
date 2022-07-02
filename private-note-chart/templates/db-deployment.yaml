@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongodb
+  name: {{ .Release.Name }}-mongodb
 spec:
   replicas: {{ .Values.db.replicasCount }}
   selector:
     matchLabels:
-      app: mongodb
+      app: {{ .Release.Name }}-mongodb
   template:
     metadata:
       labels:
-        app: mongodb
+        app: {{ .Release.Name }}-mongodb
     spec:
       containers:
         - name: mongodb
@@ -26,6 +26,6 @@ spec:
             - name: mongodb-persistent-storage
               mountPath: /data/db
       volumes:
-        - name: mongodb-persistent-storage
+        - name: {{ .Release.Name }}-mongodb-persistent-storage
           persistentVolumeClaim:
-            claimName: mongodb-pvc
+            claimName: {{ .Release.Name }}-mongodb-pvc
