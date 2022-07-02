@@ -28,5 +28,4 @@ spec:
       volumes:
         - name: mongodb-persistent-storage
           persistentVolumeClaim:
-            # TODO fix this
-            claimName: mahshid-pvc
+            claimName: mongodb-pvc
