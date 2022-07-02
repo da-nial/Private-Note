@@ -5,7 +5,7 @@ metadata:
     app: privatenote
   name: privatenote-deployment
 spec:
-  replicas: {{ app.replicasCount }}
+  replicas: {{ .Values.app.replicasCount }}
   selector:
     matchLabels:
       app: privatenote
@@ -16,7 +16,7 @@ spec:
         app: privatenote
     spec:
       containers:
-        - image: {{ app.image }}
+        - image: {{ .Values.app.image }}
           name: private-note-container
           resources: {}
           ports:

@@ -8,7 +8,7 @@ appService:
   port: 80
 
 db:
-  image: {{ docker.repos.balad.ir/mongo:4.0.4 }}
+  image: {{ .Values.docker.repos.balad.ir/mongo:4.0.4 }}
   replicasCount: 1
 
 mongodbSecret:
