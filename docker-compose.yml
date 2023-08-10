@@ -4,7 +4,7 @@ services:
   private_note:
     build:
       context: .
-      dockerfile: Dockerfile.tmp
+      dockerfile: Dockerfile.single
     environment:
       NOTE_EXPIRATION: "10"
       PORT: "5000"
