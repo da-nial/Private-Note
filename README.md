@@ -81,7 +81,8 @@ The application is configurable using a ConfigMap and Secret:
 - As this project is developed with Python, an Interpretable language, multi-stage building does not offer much of an improvement, in terms of size reduction and speed-ups.
 - The multistage build is nonetheless implemented, as it was a mandatory part of the assignment. Thus, We have `Dockerfile.multi` and `Dockerfile.single` dockerfiles, with the same functionality.
 - The multistage process is implemented by using [this reference](https://pythonspeed.com/articles/multi-stage-docker-python/).
-**StatefulSet**
+
+- **StatefulSet**
 
 - Used for MongoDB deployment to maintain a unique identity and stable network ID for each pod.
 - Provides consistency and ordering guarantees.
