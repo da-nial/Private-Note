@@ -1,0 +1,17 @@
+kubernetesClusterDomain: cluster.local
+
+app:
+  replicasCount: 3
+  image: nialda/private-note:latest
+
+appService:
+  port: 80
+
+db:
+  image: {{ .Values.docker.repos.balad.ir/mongo:4.0.4 }}
+  replicasCount: 1
+
+mongodbSecret:
+  mongoInitdbRootPassword: "myroot"
+  mongoInitdbRootUsername: "my-super-secret-password"
+

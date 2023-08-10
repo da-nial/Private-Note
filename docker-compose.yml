@@ -1,0 +1,34 @@
+version: '3.7'
+
+services:
+  private_note:
+    build:
+      context: .
+      dockerfile: Dockerfile.single
+    environment:
+      NOTE_EXPIRATION: "10"
+      PORT: "5000"
+      MONGO_HOST: private_note_db
+      MONGO_PORT: 27017
+      MONGO_INITDB_ROOT_PASSWORD: my-super-secret-password
+      MONGO_INITDB_ROOT_USERNAME: myroot
+      MONGO_INITDB_DATABASE: "notes"
+    depends_on:
+      - private_note_db
+    ports:
+      - "5000:5000"
+
+  private_note_db:
+    image: docker.repos.balad.ir/mongo:4.0.4
+    volumes:
+      - private_note_dbdata:/data/db
+    environment:
+      MONGO_INITDB_ROOT_PASSWORD: my-super-secret-password
+      MONGO_INITDB_ROOT_USERNAME: myroot
+      MONGO_INITDB_DATABASE: "notes"
+    ports:
+      - "27017:27017"
+
+
+volumes:
+  private_note_dbdata:

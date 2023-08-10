@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Release.Name }}-privatenote
+  name: {{ .Release.Name }}-privatenote-deployment
+spec:
+  replicas: {{ .Values.app.replicasCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-privatenote
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-privatenote
+    spec:
+      containers:
+        - image: {{ .Values.app.image }}
+          name: private-note-container
+          resources: {}
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-mongodb-configmap
+            - secretRef:
+                name: {{ .Release.Name }}-mongodb-secret
