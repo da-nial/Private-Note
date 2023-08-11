@@ -8,8 +8,8 @@ and [report.pdf](docs/report.pdf).
 
 ## Overview
 
-- Users can create a private note, get a unique URL for each note. Notes can only be viewed once - after being viewed the note is deleted
-- The app is Dockerized application, and uses a MongoDB container as its database.
+- Users can create a private note and get a unique URL for each note. Notes can only be viewed once - after being viewed the note is deleted
+- The app is developed using Flask, and uses a MongoDB container as its database.
 - The docker-compose, Kubernetes and Helm Chart manifests are also available for deployment.
 
 ## API Endpoints
@@ -77,12 +77,12 @@ The application is configurable using a ConfigMap and Secret:
 ## Notes
 
 **Docker Multi-stage build**
-- Often used to create a lighter version of the container, by removing any packages and modules that are not needed in the final image. This is done by creating multiple stages for the build process, in which the files related to compilation and other preprocessing procedures are left in the initial images, and only the necessary files are moved to the consecutive stages.
+- Often used to create a leaner version of the container, by removing any packages and modules that are not needed in the final image. This is done by creating multiple stages for the build process, in which the files related to compilation and other preprocessing procedures are left in the initial images, and only the necessary files are moved to the consecutive stages.
 - As this project is developed with Python, an Interpretable language, multi-stage building does not offer much of an improvement, in terms of size reduction and speed-ups.
 - The multistage build is nonetheless implemented, as it was a mandatory part of the assignment. Thus, We have `Dockerfile.multi` and `Dockerfile.single` dockerfiles, with the same functionality.
 - The multistage process is implemented by using [this reference](https://pythonspeed.com/articles/multi-stage-docker-python/).
 
-- **StatefulSet**
+**StatefulSets**
 
 - Used for MongoDB deployment to maintain a unique identity and stable network ID for each pod.
 - Provides consistency and ordering guarantees.
@@ -95,9 +95,10 @@ The application is configurable using a ConfigMap and Secret:
 
 **MongoDB Sidecars**
 
-- Added sidecar containers to MongoDB pods.
 - App write requests go to pod with `master` sidecar.
 - Read requests are directed to any pod with `slave` sidecar. 
+
+**Helm Charts**
 
 ## Demo
 
