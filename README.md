@@ -8,7 +8,8 @@ and [report.pdf](docs/report.pdf).
 
 ## Overview
 
-- Users can create a private note and get a unique URL for each note. Notes can only be viewed once - after being viewed the note is deleted
+- Users can create a private note and get a unique URL for each note. Notes can only be viewed once - after being viewed
+  the note is deleted
 - The app is developed using Flask, and uses a MongoDB container as its database.
 - The docker-compose, Kubernetes and Helm Chart manifests are also available for deployment.
 
@@ -68,7 +69,11 @@ The application is configurable using a ConfigMap and Secret:
 
 **ConfigMap**
 
-- `APP_PORT` - Port the app listens on
+- `MONGO_HOST`: Port the MongoDB is running on
+- `MONGO_PORT`: Port the MongoDB is running on
+- `MONGO_INITDB_DATABASE`: Database name
+- `NOTE_EXPIRATION`: Time period for a note to expire and be deleted
+- `PORT`: Port the app listens on
 
 **Secret**
 
@@ -77,10 +82,17 @@ The application is configurable using a ConfigMap and Secret:
 ## Notes
 
 **Docker Multi-stage build**
-- Often used to create a leaner version of the container, by removing any packages and modules that are not needed in the final image. This is done by creating multiple stages for the build process, in which the files related to compilation and other preprocessing procedures are left in the initial images, and only the necessary files are moved to the consecutive stages.
-- As this project is developed with Python, an Interpretable language, multi-stage building does not offer much of an improvement, in terms of size reduction and speed-ups.
-- The multistage build is nonetheless implemented, as it was a mandatory part of the assignment. Thus, We have `Dockerfile.multi` and `Dockerfile.single` dockerfiles, with the same functionality.
-- The multistage process is implemented by using [this reference](https://pythonspeed.com/articles/multi-stage-docker-python/).
+
+- Often used to create a leaner version of the container, by removing any packages and modules that are not needed in
+  the final image. This is done by creating multiple stages for the build process, in which the files related to
+  compilation and other preprocessing procedures are left in the initial images, and only the necessary files are moved
+  to the consecutive stages.
+- As this project is developed with Python, an Interpretable language, multi-stage building does not offer much of an
+  improvement, in terms of size reduction and speed-ups.
+- The multistage build is nonetheless implemented, as it was a mandatory part of the assignment. Thus, We
+  have `Dockerfile.multi` and `Dockerfile.single` dockerfiles, with the same functionality.
+- The multistage process is implemented by
+  using [this reference](https://pythonspeed.com/articles/multi-stage-docker-python/).
 
 **StatefulSets**
 
@@ -88,15 +100,15 @@ The application is configurable using a ConfigMap and Secret:
 - Provides consistency and ordering guarantees.
 - Allows mounting persistent volumes to pod.
 
-**Horizontal Pod Autoscaler (HPA)** 
+**Horizontal Pod Autoscaler (HPA)**
 
-- Automatically scales the number of Flask app pods based on CPU usage. 
+- Automatically scales the number of Flask app pods based on CPU usage.
 - Helps handle increased traffic and load.
 
 **MongoDB Sidecars**
 
 - App write requests go to pod with `master` sidecar.
-- Read requests are directed to any pod with `slave` sidecar. 
+- Read requests are directed to any pod with `slave` sidecar.
 
 **Helm Charts**
 
@@ -105,7 +117,6 @@ The application is configurable using a ConfigMap and Secret:
 <div style="text-align:center;">
   <img src="docs/demo.png" alt="Sample Image" width="450" style="border-radius: 10px;">
 </div>
-
 
 ## Course Information
 
