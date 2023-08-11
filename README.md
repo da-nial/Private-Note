@@ -72,7 +72,7 @@ The application is configurable using a ConfigMap and Secret:
 
 **Secret**
 
-- `MONGO_PASSWORD` - MongoDB password
+- `MONGO_INITDB_ROOT_PASSWORD` - MongoDB password
 
 ## Notes
 
